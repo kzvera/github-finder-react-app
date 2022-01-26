@@ -1,6 +1,6 @@
 # Github Finder App
 
-App to search Github users and display their info. This is built using React, Router V6, and the Context API. View Demo: 
+App to search Github users and display their info. This is built using React, Router V6, and the Context API and deployed on Vercel. View Demo: [https://react-github-finder-app-nine.vercel.app/](https://react-github-finder-app-nine.vercel.app/)
 
 ## Usage
 
