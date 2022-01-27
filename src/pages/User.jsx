@@ -1,13 +1,16 @@
-import { useContext, useEffect } from "react"
+import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
 import Spinner from "../components/layout/Spinner";
 import RepoList from "../components/repos/RepoList";
-import GithubContext from "../context/github/GithubContext"
-import { getUserAndRepos } from "../context/github/GithubActions";
+import { getUserAndRepos, setLoading } from "../actions/githubActions";
 
 const User = () => {
-    const { user, loading, repos, dispatch } = useContext(GithubContext);
+    const user = useSelector(state => state.github.user);
+    const repos = useSelector(state => state.github.repos);
+    const loading = useSelector(state => state.github.loading);
+    const dispatch = useDispatch();
     const params = useParams();
 
     const {
@@ -28,15 +31,10 @@ const User = () => {
       } = user
 
     useEffect(() => {
-        dispatch({ type: 'SET_LOADING' });
+        dispatch(setLoading());
 
         const getUserData = async () => {
-            const userData = await getUserAndRepos(params.login);
-            
-            dispatch({
-                type: 'GET_USER_AND_REPOS',
-                payload: userData
-            })
+            dispatch(getUserAndRepos(params.login));
         }
 
         getUserData();
